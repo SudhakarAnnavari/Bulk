@@ -1,0 +1,57 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+trigger:
+  branch: 
+  - main
+
+steps:
+- name: build & push  
+  image: plugins/ecr
+  settings:
+    access_key:
+      from_secret: AWS_ACCESS_KEY_ID
+    secret_key:
+      from_secret: AWS_SECRET_ACCESS_KEY
+    create_repository: true
+    region: 
+      from_secret: AWS_REGION
+    dockerfile: Dockerfile
+    context: .
+    tags: ${DRONE_COMMIT_SHA}
+    repo: bulk-downloader
+    registry:
+      from_secret: AWS_REGISTRY
+    lifecycle_policy: aws-ecr-lifecycle-policy.json
+
+
+- name: update-IAS  
+  image: bitnami/git:2.41.0-debian-11-r4 
+  environment:
+    GITOPS_REPO:
+      from_secret: GITOPS_REPO 
+  commands:
+  - cd /tmp
+  - git clone -b dev $GITOPS_REPO
+  - cd /tmp/finkraft-gitops/
+  - sed -i "s|458118737559.dkr.ecr.ap-south-1.amazonaws.com/bulk-downloader:[^ ]*|458118737559.dkr.ecr.ap-south-1.amazonaws.com/bulk-downloader:${DRONE_COMMIT_SHA}|g" /tmp/finkraft-gitops/cluster-dev/file-manager/download-deploy.yaml
+  - git add -A
+  - git commit -m"Drone | updated bulk-downloader image tag to ${DRONE_COMMIT_SHA}"
+  - git push origin dev
+
+
+
+
+    
+
+
+
+
+
+# git clone https://tuhin37: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@github.com/tuhin37/finkraft-gitops.git
+
+# volumes:
+# - name: docker-socket  
+#   host:
+#     path: /var/run/docker.sock  

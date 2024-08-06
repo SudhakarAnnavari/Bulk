@@ -1,0 +1,13 @@
+2024-07-18 17:18:02.928 | INFO     | __main__:<module>:18 - Processing upload with filename: ./data/Bulk Cust 20190c5ab-ac33-71d8-b7c4-12af7d88d3b2.csv, email: annavarisudhakar@gmail.com, group_by: airline
+2024-07-18 17:18:02.929 | INFO     | app.process:process_upload:384 - Processing file
+2024-07-18 17:18:02.930 | INFO     | app.process:download_files:119 - Creating base folder as :: ./data/Bulk Cust 20190c5ab-ac33-71d8-b7c4-12af7d88d3b2
+2024-07-18 17:18:02.931 | INFO     | app.process:download_files:123 - Reading file
+2024-07-18 17:18:02.965 | INFO     | app.process:download_files:138 - Downloading S3 links
+2024-07-18 17:18:03.442 | INFO     | app.process:download_files:148 - Dividing into workers :: 29 for total :: 5784
+2024-07-18 17:19:55.022 | INFO     | app.process:process_upload:388 - Downloaded to ./data/Bulk Cust 20190c5ab-ac33-71d8-b7c4-12af7d88d3b2
+2024-07-18 17:19:55.023 | INFO     | app.process:convert_html_to_pdf:327 - Converting html to pdf in folder:: ./data/Bulk Cust 20190c5ab-ac33-71d8-b7c4-12af7d88d3b2
+2024-07-18 17:26:02.089 | INFO     | app.process:upload_to_s3:289 - Uploading to S3
+2024-07-18 17:26:34.847 | INFO     | app.process:generate_presigned_url:311 - Generating pre-signed url
+2024-07-18 17:26:34.859 | INFO     | app.zohomail:send_zoho_mail:23 - Sending zoho mail
+2024-07-18 17:26:40.850 | INFO     | app.process:insert_bulk_download:109 - Data inserted into bulk_download table
+2024-07-18 17:26:41.950 | INFO     | __main__:<module>:46 - Processing completed successfully for file: ./data/Bulk Cust 20190c5ab-ac33-71d8-b7c4-12af7d88d3b2.csv

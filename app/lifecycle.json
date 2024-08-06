@@ -1,0 +1,14 @@
+{
+  "Rules": [
+    {
+      "ID": "DeleteObjectAfter10Days",
+      "Status": "Enabled",
+      "Filter": {
+        "Prefix": "downloadables/"
+      },
+      "Expiration": {
+        "Days": 10
+      }
+    }
+  ]
+}
